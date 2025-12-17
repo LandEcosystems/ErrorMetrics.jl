@@ -1,8 +1,7 @@
-export ErrorMetricsTypes
-abstract type ErrorMetricsTypes end
-purpose(::Type{ErrorMetricsTypes}) = "Abstract type for error metrics in SINDBAD"
-# ------------------------- metric -------------------------
 export ErrorMetric
+abstract type ErrorMetric end
+purpose(::Type{ErrorMetric}) = "Abstract type for error / performance metrics"
+# ------------------------- metric -------------------------
 export MSE
 export NAME1R
 export NMAE1R
@@ -27,9 +26,6 @@ export ScorInv
 export Scor2
 export Scor2Inv
 
-
-abstract type ErrorMetric <: ErrorMetricsTypes end
-purpose(::Type{ErrorMetric}) = "Abstract type for performance metrics in SINDBAD"
 
 struct MSE <: ErrorMetric end
 purpose(::Type{MSE}) = "Mean Squared Error: Measures the average squared difference between predicted and observed values"
