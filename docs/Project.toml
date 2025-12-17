@@ -1,0 +1,6 @@
+[deps]
+Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
+ErrorMetrics = "c324fbf6-076a-4da5-8ad2-21081a6b285c"
+
+[compat]
+Documenter = "1"
