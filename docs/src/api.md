@@ -4,6 +4,13 @@ CurrentModule = ErrorMetrics
 
 # API
 
+## Complete API Reference
+
+```@autodocs
+Modules = [ErrorMetrics]
+Order = [:module, :type, :function]
+```
+
 ## Metrics
 
 ## Error-based Metrics
@@ -12,9 +19,9 @@ CurrentModule = ErrorMetrics
 
 Mean Squared Error: Measures the average squared difference between predicted and observed values
 
-\[
+\$\$
 \text{MSE} = \frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y}_i)^2
-\]
+\$\$
 
 
 
@@ -34,9 +41,9 @@ end
 
 Normalized Absolute Mean Error with 1/R scaling: Measures the absolute difference between means normalized by the range of observations
 
-\[
+\$\$
 \text{NAME1R} = \frac{|\bar{\hat{y}} - \bar{y}|}{1 + \bar{y}}
-\]
+\$\$
 
 
 
@@ -59,9 +66,9 @@ end
 
 Normalized Mean Absolute Error with 1/R scaling: Measures the average absolute error normalized by the range of observations
 
-\[
+\$\$
 \text{NMAE1R} = \frac{1}{n}\sum_{i=1}^{n}\frac{|y_i - \hat{y}_i|}{1 + \bar{y}}
-\]
+\$\$
 
 
 
@@ -85,9 +92,9 @@ end
 
 Normalized Nash-Sutcliffe Efficiency: Measures model performance relative to the mean of observations, normalized to [0,1] range
 
-\[
+\$\$
 \text{NNSE} = \frac{1}{1 + (1 - \text{NSE})} = \frac{1}{2 - \text{NSE}}
-\]
+\$\$
 
 
 
@@ -109,9 +116,9 @@ end
 
 Inverse Normalized Nash-Sutcliffe Efficiency: Inverse of NNSE for minimization problems, normalized to [0,1] range
 
-\[
+\$\$
 \text{NNSEInv} = 1 - \text{NNSE}
-\]
+\$\$
 
 
 
@@ -132,9 +139,9 @@ end
 
 Normalized Nash-Sutcliffe Efficiency with uncertainty: Incorporates observation uncertainty in the normalized performance measure
 
-\[
+\$\$
 \text{NNSE}_\sigma = \frac{1}{1 + (1 - \text{NSE}_\sigma)} = \frac{1}{2 - \text{NSE}_\sigma}
-\]
+\$\$
 
 
 
@@ -156,9 +163,9 @@ end
 
 Inverse Normalized Nash-Sutcliffe Efficiency with uncertainty: Inverse of NNSEσ for minimization problems
 
-\[
+\$\$
 \text{NNSE}_\sigma\text{Inv} = 1 - \text{NNSE}_\sigma
-\]
+\$\$
 
 
 
@@ -179,9 +186,9 @@ end
 
 Nash-Sutcliffe Efficiency: Measures model performance relative to the mean of observations
 
-\[
+\$\$
 \text{NSE} = 1 - \frac{\sum_{i=1}^{n}(y_i - \hat{y}_i)^2}{\sum_{i=1}^{n}(y_i - \bar{y})^2}
-\]
+\$\$
 
 
 
@@ -202,9 +209,9 @@ end
 
 Inverse Nash-Sutcliffe Efficiency: Inverse of NSE for minimization problems
 
-\[
+\$\$
 \text{NSEInv} = 1 - \text{NSE}
-\]
+\$\$
 
 
 
@@ -225,9 +232,9 @@ end
 
 Nash-Sutcliffe Efficiency with uncertainty: Incorporates observation uncertainty in the performance measure
 
-\[
+\$\$
 \text{NSE}_\sigma = 1 - \frac{\sum_{i=1}^{n}\left(\frac{y_i - \hat{y}_i}{\sigma_i}\right)^2}{\sum_{i=1}^{n}\left(\frac{y_i - \bar{y}}{\sigma_i}\right)^2}
-\]
+\$\$
 
 
 
@@ -251,9 +258,9 @@ end
 
 Inverse Nash-Sutcliffe Efficiency with uncertainty: Inverse of NSEσ for minimization problems
 
-\[
+\$\$
 \text{NSE}_\sigma\text{Inv} = 1 - \text{NSE}_\sigma
-\]
+\$\$
 
 
 
@@ -276,9 +283,9 @@ end
 
 Normalized Pearson Correlation: Measures linear correlation between predictions and observations, normalized to [0,1] range
 
-\[
+\$\$
 \text{NPcor} = \frac{1}{1 + (1 - r)} = \frac{1}{2 - r}
-\]
+\$\$
 
 
 
@@ -301,9 +308,9 @@ end
 
 Inverse Normalized Pearson Correlation: Inverse of NPcor for minimization problems
 
-\[
+\$\$
 \text{NPcorInv} = 1 - \text{NPcor}
-\]
+\$\$
 
 
 
@@ -324,9 +331,9 @@ end
 
 Pearson Correlation: Measures linear correlation between predictions and observations
 
-\[
+\$\$
 r = \frac{\sum_{i=1}^{n}(y_i - \bar{y})(\hat{y}_i - \bar{\hat{y}})}{\sqrt{\sum_{i=1}^{n}(y_i - \bar{y})^2}\sqrt{\sum_{i=1}^{n}(\hat{y}_i - \bar{\hat{y}})^2}}
-\]
+\$\$
 
 
 
@@ -346,9 +353,9 @@ end
 
 Squared Pearson Correlation: Measures the strength of linear relationship between predictions and observations
 
-\[
+\$\$
 r^2 = \left(\frac{\sum_{i=1}^{n}(y_i - \bar{y})(\hat{y}_i - \bar{\hat{y}})}{\sqrt{\sum_{i=1}^{n}(y_i - \bar{y})^2}\sqrt{\sum_{i=1}^{n}(\hat{y}_i - \bar{\hat{y}})^2}}\right)^2
-\]
+\$\$
 
 
 
@@ -369,9 +376,9 @@ end
 
 Inverse Squared Pearson Correlation: Inverse of Pcor2 for minimization problems
 
-\[
+\$\$
 r^2_{\text{Inv}} = 1 - r^2
-\]
+\$\$
 
 
 
@@ -392,9 +399,9 @@ end
 
 Inverse Pearson Correlation: Inverse of Pcor for minimization problems
 
-\[
+\$\$
 r_{\text{Inv}} = 1 - r
-\]
+\$\$
 
 
 
@@ -417,9 +424,9 @@ end
 
 Normalized Spearman Correlation: Measures monotonic relationship between predictions and observations, normalized to [0,1] range
 
-\[
+\$\$
 \text{NScor} = \frac{1}{1 + (1 - \rho)} = \frac{1}{2 - \rho}
-\]
+\$\$
 
 
 
@@ -442,9 +449,9 @@ end
 
 Inverse Normalized Spearman Correlation: Inverse of NScor for minimization problems
 
-\[
+\$\$
 \text{NScorInv} = 1 - \text{NScor}
-\]
+\$\$
 
 
 
@@ -465,9 +472,9 @@ end
 
 Spearman Correlation: Measures monotonic relationship between predictions and observations
 
-\[
+\$\$
 \rho = \text{Spearman}(y, \hat{y})
-\]
+\$\$
 
 
 
@@ -487,9 +494,9 @@ end
 
 Squared Spearman Correlation: Measures the strength of monotonic relationship between predictions and observations
 
-\[
+\$\$
 \rho^2 = (\text{Spearman}(y, \hat{y}))^2
-\]
+\$\$
 
 
 
@@ -510,9 +517,9 @@ end
 
 Inverse Squared Spearman Correlation: Inverse of Scor2 for minimization problems
 
-\[
+\$\$
 \rho^2_{\text{Inv}} = 1 - \rho^2
-\]
+\$\$
 
 
 
@@ -533,9 +540,9 @@ end
 
 Inverse Spearman Correlation: Inverse of Scor for minimization problems
 
-\[
+\$\$
 \rho_{\text{Inv}} = 1 - \rho
-\]
+\$\$
 
 
 
@@ -552,9 +559,3 @@ end
 
 ---
 
-## Complete API Reference
-
-```@autodocs
-Modules = [ErrorMetrics]
-Order = [:module, :type, :function]
-```

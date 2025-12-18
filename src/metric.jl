@@ -9,13 +9,14 @@ export metric
 
 calculate the performance/loss metric for given observation and model simulation data stream
 
-# Arguments:
-  - `y`: observation data
-  - `yσ`: observational uncertainty data (optional; when omitted it behaves like `ones(size(y))` without allocating)
-  - `ŷ`: model simulation data
-    
 # Returns:
 - `metric`: The calculated metric value
+
+# Arguments:
+  - `m`: ErrorMetric type specifying which metric to calculate
+  - `ŷ`: model simulation data
+  - `y`: observation data
+  - `yσ`: observational uncertainty data (optional; when omitted it behaves like `ones(size(y))` without allocating)
 
 # Examples
 ```jldoctest

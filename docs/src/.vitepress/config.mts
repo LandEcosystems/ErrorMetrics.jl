@@ -121,12 +121,6 @@ export default defineConfig({
   
   head: [
     ['link', { rel: 'icon', href: '/favicon.ico' }],
-    ['script', { 
-      type: 'text/javascript',
-      id: 'MathJax-script',
-      async: true,
-      src: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
-    }],
     ['script', {}, `
       window.MathJax = {
         tex: {
@@ -134,10 +128,26 @@ export default defineConfig({
           displayMath: [['$$', '$$'], ['\\\\[', '\\\\]']],
         },
         options: {
-          skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+          skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        },
+        startup: {
+          ready: () => {
+            MathJax.startup.defaultReady();
+            MathJax.startup.promise.then(() => {
+              if (MathJax.typesetPromise) {
+                MathJax.typesetPromise();
+              }
+            });
+          }
         }
       };
     `],
+    ['script', { 
+      type: 'text/javascript',
+      id: 'MathJax-script',
+      async: true,
+      src: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+    }],
   ],
   
   vite: {

@@ -23,8 +23,21 @@ export const Theme: ThemeConfig = {
       'nav-screen-content-after': () => h(NolebaseEnhancedReadabilitiesScreenMenu),
     })
   },
-  enhanceApp({ app }) {
+  enhanceApp({ app, router }) {
     enhanceAppWithTabs(app);
+    
+    // Trigger MathJax rendering after route changes
+    if (typeof window !== 'undefined') {
+      router.onAfterRouteChanged = () => {
+        setTimeout(() => {
+          if (window.MathJax && window.MathJax.typesetPromise) {
+            window.MathJax.typesetPromise().catch((err: any) => {
+              console.error('MathJax typeset error:', err);
+            });
+          }
+        }, 100);
+      };
+    }
   }
 }
 export default Theme

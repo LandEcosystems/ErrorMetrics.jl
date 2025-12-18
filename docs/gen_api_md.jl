@@ -71,6 +71,11 @@ open(api_path, "w") do io
     write(io, "CurrentModule = ErrorMetrics\n")
     write(io, "```\n\n")
     write(io, "# API\n\n")
+    write(io, "## Complete API Reference\n\n")
+    write(io, "```@autodocs\n")
+    write(io, "Modules = [ErrorMetrics]\n")
+    write(io, "Order = [:module, :type, :function]\n")
+    write(io, "```\n\n")
     write(io, "## Metrics\n\n")
     
     # Get all metric types
@@ -95,10 +100,10 @@ open(api_path, "w") do io
         equation = julia_to_latex("", type_name)
         if equation != "Equation not available"
             write(io, "\n\n")
-            # Use \[...\] syntax which Documenter won't interpret as interpolation
-            write(io, "\\[\n")
+            # Use $$ syntax - escape $ for Documenter (\\$ writes \$ to file, which Documenter treats as literal $)
+            write(io, "\\\$\\\$\n")
             write(io, equation)
-            write(io, "\n\\]\n\n")
+            write(io, "\n\\\$\\\$\n\n")
         else
             write(io, "\n\n")
         end
@@ -149,13 +154,6 @@ open(api_path, "w") do io
             write_metric(io, typ, "Rank Correlation")
         end
     end
-    
-    # Add autodocs at the end for complete API reference
-    write(io, "## Complete API Reference\n\n")
-    write(io, "```@autodocs\n")
-    write(io, "Modules = [ErrorMetrics]\n")
-    write(io, "Order = [:module, :type, :function]\n")
-    write(io, "```\n")
 end
 
 println("Generated API documentation at: $api_path")
