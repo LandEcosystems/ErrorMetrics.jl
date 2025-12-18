@@ -86,11 +86,22 @@ open(api_path, "w") do io
     write(io, "CurrentModule = ErrorMetrics\n")
     write(io, "```\n\n")
     write(io, "# API\n\n")
-    write(io, "## Complete API Reference\n\n")
-    write(io, "```@autodocs\n")
-    write(io, "Modules = [ErrorMetrics]\n")
-    write(io, "Order = [:module, :type, :function]\n")
+    
+    # Document the metric function with @docs
+    write(io, "```@docs\n")
+    write(io, "metric\n")
     write(io, "```\n\n")
+    
+    # Add code section for metric function
+    func_code = extract_function_code(metric_code, "metric")
+    if func_code !== nothing
+        write(io, "::: details Code\n\n")
+        write(io, "```julia\n")
+        write(io, func_code)
+        write(io, "\n```\n\n")
+        write(io, ":::\n\n")
+    end
+    
     write(io, "## Metrics\n\n")
     
     # Get all metric types
@@ -108,7 +119,7 @@ open(api_path, "w") do io
         type_name = string(nameof(typ))
         metric_purpose = ErrorMetrics.purpose(typ)
         
-        write(io, "### $type_name\n\n")
+        write(io, "### `$type_name`\n\n")
         write(io, "$metric_purpose")
         
         # Mathematical equation - placed directly after purpose

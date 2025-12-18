@@ -37,15 +37,17 @@ open(types_path, "w") do io
     write(io, "end\n")
     write(io, "```\n\n")
     
-    # ErrorMetric abstract type
-    write(io, "## ErrorMetric\n\n")
-    write(io, "```@docs\n")
-    write(io, "ErrorMetric\n")
-    write(io, "```\n\n")
     # Use purpose from ErrorMetrics (which extends OmniTools.purpose)
     error_metric_purpose = (typ) -> ErrorMetrics.purpose(typ)
-    write(io, get_type_docstring(ErrorMetric, purpose_function=error_metric_purpose))
-    write(io, "\n\n")
+    
+    # ErrorMetric abstract type
+    write(io, "## ErrorMetric\n\n")
+    write(io, "`ErrorMetric`\n\n")
+    purpose_text = error_metric_purpose(ErrorMetric)
+    write(io, "$(purpose_text)\n\n")
+    write(io, "```\n")
+    write(io, "ErrorMetric <: Any\n")
+    write(io, "```\n\n")
     
     # Get all ErrorMetric subtypes
     error_metric_types = subtypes(ErrorMetric)
@@ -58,6 +60,7 @@ open(types_path, "w") do io
     rank_correlation = filter(t -> occursin("Scor", string(nameof(t))), error_metric_types)
     
     # Helper function to format type docstring without redundant headings
+    # Returns (formatted_docstring, hierarchy_line)
     function format_type_docstring(typ, purpose_function)
         docstr = get_type_docstring(typ, purpose_function=purpose_function)
         type_name = string(nameof(typ))
@@ -67,6 +70,7 @@ open(types_path, "w") do io
         result_lines = String[]
         skip_next_empty = false
         in_type_hierarchy = false
+        hierarchy_line = nothing
         
         for line in lines
             # Skip the # TypeName heading
@@ -94,9 +98,6 @@ open(types_path, "w") do io
                     # Remove code block markers and keep just the content
                     hierarchy_line = replace(line, r"```+" => "")
                     hierarchy_line = strip(hierarchy_line)
-                    if !isempty(hierarchy_line)
-                        push!(result_lines, hierarchy_line)
-                    end
                     in_type_hierarchy = false
                     continue
                 elseif isempty(strip(line))
@@ -107,7 +108,7 @@ open(types_path, "w") do io
             push!(result_lines, line)
         end
         
-        return join(result_lines, '\n')
+        return (join(result_lines, '\n'), hierarchy_line)
     end
     
     # Error-based Metrics
@@ -115,10 +116,15 @@ open(types_path, "w") do io
         write(io, "## Error-based Metrics\n\n")
         for (idx, typ) in enumerate(error_based)
             type_name = string(nameof(typ))
-            write(io, "$(type_name)\n\n")
-            formatted = format_type_docstring(typ, error_metric_purpose)
+            write(io, "`$(type_name)`\n\n")
+            formatted, hierarchy = format_type_docstring(typ, error_metric_purpose)
             write(io, formatted)
             write(io, "\n\n")
+            if hierarchy !== nothing && !isempty(strip(hierarchy))
+                write(io, "```\n")
+                write(io, "$(hierarchy)\n")
+                write(io, "```\n\n")
+            end
             # Add separator between metrics, but not after the last one
             if idx < length(error_based)
                 write(io, "---\n\n")
@@ -131,10 +137,15 @@ open(types_path, "w") do io
         write(io, "## Nash-Sutcliffe Efficiency Metrics\n\n")
         for (idx, typ) in enumerate(nse_based)
             type_name = string(nameof(typ))
-            write(io, "$(type_name)\n\n")
-            formatted = format_type_docstring(typ, error_metric_purpose)
+            write(io, "`$(type_name)`\n\n")
+            formatted, hierarchy = format_type_docstring(typ, error_metric_purpose)
             write(io, formatted)
             write(io, "\n\n")
+            if hierarchy !== nothing && !isempty(strip(hierarchy))
+                write(io, "```\n")
+                write(io, "$(hierarchy)\n")
+                write(io, "```\n\n")
+            end
             # Add separator between metrics, but not after the last one
             if idx < length(nse_based)
                 write(io, "---\n\n")
@@ -148,10 +159,15 @@ open(types_path, "w") do io
         write(io, "## Correlation-based Metrics\n\n")
         for (idx, typ) in enumerate(correlation_pearson)
             type_name = string(nameof(typ))
-            write(io, "$(type_name)\n\n")
-            formatted = format_type_docstring(typ, error_metric_purpose)
+            write(io, "`$(type_name)`\n\n")
+            formatted, hierarchy = format_type_docstring(typ, error_metric_purpose)
             write(io, formatted)
             write(io, "\n\n")
+            if hierarchy !== nothing && !isempty(strip(hierarchy))
+                write(io, "```\n")
+                write(io, "$(hierarchy)\n")
+                write(io, "```\n\n")
+            end
             # Add separator between metrics, but not after the last one
             if idx < length(correlation_pearson)
                 write(io, "---\n\n")
@@ -164,10 +180,15 @@ open(types_path, "w") do io
         write(io, "## Rank Correlation Metrics\n\n")
         for (idx, typ) in enumerate(rank_correlation)
             type_name = string(nameof(typ))
-            write(io, "$(type_name)\n\n")
-            formatted = format_type_docstring(typ, error_metric_purpose)
+            write(io, "`$(type_name)`\n\n")
+            formatted, hierarchy = format_type_docstring(typ, error_metric_purpose)
             write(io, formatted)
             write(io, "\n\n")
+            if hierarchy !== nothing && !isempty(strip(hierarchy))
+                write(io, "```\n")
+                write(io, "$(hierarchy)\n")
+                write(io, "```\n\n")
+            end
             # Add separator between metrics, but not after the last one
             if idx < length(rank_correlation)
                 write(io, "---\n\n")
