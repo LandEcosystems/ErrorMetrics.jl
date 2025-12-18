@@ -42,27 +42,88 @@ open(types_path, "w") do io
     correlation_based = filter(t -> occursin("cor", lowercase(string(nameof(t)))), error_metric_types)
     rank_correlation = filter(t -> occursin("Scor", string(nameof(t))), error_metric_types)
     
+    # Helper function to format type docstring without redundant headings
+    function format_type_docstring(typ, purpose_function)
+        docstr = get_type_docstring(typ, purpose_function=purpose_function)
+        type_name = string(nameof(typ))
+        
+        # Remove the # TypeName heading and ## Type Hierarchy heading
+        lines = split(docstr, '\n')
+        result_lines = String[]
+        skip_next_empty = false
+        in_type_hierarchy = false
+        
+        for line in lines
+            # Skip the # TypeName heading
+            if startswith(line, "# $(type_name)")
+                skip_next_empty = true
+                continue
+            end
+            
+            # Skip empty lines after removed heading
+            if skip_next_empty && isempty(strip(line))
+                skip_next_empty = false
+                continue
+            end
+            skip_next_empty = false
+            
+            # Skip the ## Type Hierarchy heading
+            if startswith(line, "## Type Hierarchy")
+                in_type_hierarchy = true
+                continue
+            end
+            
+            # Process the type hierarchy line (the ```TypeName <: ...``` line)
+            if in_type_hierarchy
+                if startswith(line, "```")
+                    # Remove code block markers and keep just the content
+                    hierarchy_line = replace(line, r"```+" => "")
+                    hierarchy_line = strip(hierarchy_line)
+                    if !isempty(hierarchy_line)
+                        push!(result_lines, hierarchy_line)
+                    end
+                    in_type_hierarchy = false
+                    continue
+                elseif isempty(strip(line))
+                    continue
+                end
+            end
+            
+            push!(result_lines, line)
+        end
+        
+        return join(result_lines, '\n')
+    end
+    
     # Error-based Metrics
     if !isempty(error_based)
         write(io, "## Error-based Metrics\n\n")
-        for typ in error_based
-            write(io, "```@docs\n")
-            write(io, "$(nameof(typ))\n")
-            write(io, "```\n\n")
-            write(io, get_type_docstring(typ, purpose_function=error_metric_purpose))
+        for (idx, typ) in enumerate(error_based)
+            type_name = string(nameof(typ))
+            write(io, "$(type_name)\n\n")
+            formatted = format_type_docstring(typ, error_metric_purpose)
+            write(io, formatted)
             write(io, "\n\n")
+            # Add separator between metrics, but not after the last one
+            if idx < length(error_based)
+                write(io, "---\n\n")
+            end
         end
     end
     
     # Nash-Sutcliffe Efficiency Metrics
     if !isempty(nse_based)
         write(io, "## Nash-Sutcliffe Efficiency Metrics\n\n")
-        for typ in nse_based
-            write(io, "```@docs\n")
-            write(io, "$(nameof(typ))\n")
-            write(io, "```\n\n")
-            write(io, get_type_docstring(typ, purpose_function=error_metric_purpose))
+        for (idx, typ) in enumerate(nse_based)
+            type_name = string(nameof(typ))
+            write(io, "$(type_name)\n\n")
+            formatted = format_type_docstring(typ, error_metric_purpose)
+            write(io, formatted)
             write(io, "\n\n")
+            # Add separator between metrics, but not after the last one
+            if idx < length(nse_based)
+                write(io, "---\n\n")
+            end
         end
     end
     
@@ -70,24 +131,32 @@ open(types_path, "w") do io
     correlation_pearson = filter(t -> occursin("Pcor", string(nameof(t))) && !occursin("Scor", string(nameof(t))), error_metric_types)
     if !isempty(correlation_pearson)
         write(io, "## Correlation-based Metrics\n\n")
-        for typ in correlation_pearson
-            write(io, "```@docs\n")
-            write(io, "$(nameof(typ))\n")
-            write(io, "```\n\n")
-            write(io, get_type_docstring(typ, purpose_function=error_metric_purpose))
+        for (idx, typ) in enumerate(correlation_pearson)
+            type_name = string(nameof(typ))
+            write(io, "$(type_name)\n\n")
+            formatted = format_type_docstring(typ, error_metric_purpose)
+            write(io, formatted)
             write(io, "\n\n")
+            # Add separator between metrics, but not after the last one
+            if idx < length(correlation_pearson)
+                write(io, "---\n\n")
+            end
         end
     end
     
     # Rank Correlation Metrics
     if !isempty(rank_correlation)
         write(io, "## Rank Correlation Metrics\n\n")
-        for typ in rank_correlation
-            write(io, "```@docs\n")
-            write(io, "$(nameof(typ))\n")
-            write(io, "```\n\n")
-            write(io, get_type_docstring(typ, purpose_function=error_metric_purpose))
+        for (idx, typ) in enumerate(rank_correlation)
+            type_name = string(nameof(typ))
+            write(io, "$(type_name)\n\n")
+            formatted = format_type_docstring(typ, error_metric_purpose)
+            write(io, formatted)
             write(io, "\n\n")
+            # Add separator between metrics, but not after the last one
+            if idx < length(rank_correlation)
+                write(io, "---\n\n")
+            end
         end
     end
     

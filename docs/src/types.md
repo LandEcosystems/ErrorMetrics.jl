@@ -12,6 +12,10 @@ end
 
 ## ErrorMetric
 
+```@docs
+ErrorMetric
+```
+
 
 # ErrorMetric
 
@@ -56,308 +60,254 @@ Abstract type for error / performance metrics
 
 ## Error-based Metrics
 
-### MSE
+MSE
 
-
-# MSE
 
 Mean Squared Error: Measures the average squared difference between predicted and observed values
 
-## Type Hierarchy
-
-```MSE <: ErrorMetric <: Any```
+MSE <: ErrorMetric <: Any
 
 
 
-### NAME1R
+---
 
+NAME1R
 
-# NAME1R
 
 Normalized Absolute Mean Error with 1/R scaling: Measures the absolute difference between means normalized by the range of observations
 
-## Type Hierarchy
-
-```NAME1R <: ErrorMetric <: Any```
+NAME1R <: ErrorMetric <: Any
 
 
 
-### NMAE1R
+---
 
+NMAE1R
 
-# NMAE1R
 
 Normalized Mean Absolute Error with 1/R scaling: Measures the average absolute error normalized by the range of observations
 
-## Type Hierarchy
-
-```NMAE1R <: ErrorMetric <: Any```
+NMAE1R <: ErrorMetric <: Any
 
 
 
 ## Nash-Sutcliffe Efficiency Metrics
 
-### NNSE
+NNSE
 
-
-# NNSE
 
 Normalized Nash-Sutcliffe Efficiency: Measures model performance relative to the mean of observations, normalized to [0,1] range
 
-## Type Hierarchy
-
-```NNSE <: ErrorMetric <: Any```
+NNSE <: ErrorMetric <: Any
 
 
 
-### NNSEInv
+---
 
+NNSEInv
 
-# NNSEInv
 
 Inverse Normalized Nash-Sutcliffe Efficiency: Inverse of NNSE for minimization problems, normalized to [0,1] range
 
-## Type Hierarchy
-
-```NNSEInv <: ErrorMetric <: Any```
+NNSEInv <: ErrorMetric <: Any
 
 
 
-### NNSEσ
+---
 
+NNSEσ
 
-# NNSEσ
 
 Normalized Nash-Sutcliffe Efficiency with uncertainty: Incorporates observation uncertainty in the normalized performance measure
 
-## Type Hierarchy
-
-```NNSEσ <: ErrorMetric <: Any```
+NNSEσ <: ErrorMetric <: Any
 
 
 
-### NNSEσInv
+---
 
+NNSEσInv
 
-# NNSEσInv
 
 Inverse Normalized Nash-Sutcliffe Efficiency with uncertainty: Inverse of NNSEσ for minimization problems
 
-## Type Hierarchy
-
-```NNSEσInv <: ErrorMetric <: Any```
+NNSEσInv <: ErrorMetric <: Any
 
 
 
-### NSE
+---
 
+NSE
 
-# NSE
 
 Nash-Sutcliffe Efficiency: Measures model performance relative to the mean of observations
 
-## Type Hierarchy
-
-```NSE <: ErrorMetric <: Any```
+NSE <: ErrorMetric <: Any
 
 
 
-### NSEInv
+---
 
+NSEInv
 
-# NSEInv
 
 Inverse Nash-Sutcliffe Efficiency: Inverse of NSE for minimization problems
 
-## Type Hierarchy
-
-```NSEInv <: ErrorMetric <: Any```
+NSEInv <: ErrorMetric <: Any
 
 
 
-### NSEσ
+---
 
+NSEσ
 
-# NSEσ
 
 Nash-Sutcliffe Efficiency with uncertainty: Incorporates observation uncertainty in the performance measure
 
-## Type Hierarchy
-
-```NSEσ <: ErrorMetric <: Any```
+NSEσ <: ErrorMetric <: Any
 
 
 
-### NSEσInv
+---
 
+NSEσInv
 
-# NSEσInv
 
 Inverse Nash-Sutcliffe Efficiency with uncertainty: Inverse of NSEσ for minimization problems
 
-## Type Hierarchy
-
-```NSEσInv <: ErrorMetric <: Any```
+NSEσInv <: ErrorMetric <: Any
 
 
 
 ## Correlation-based Metrics
 
-### NPcor
+NPcor
 
-
-# NPcor
 
 Normalized Pearson Correlation: Measures linear correlation between predictions and observations, normalized to [0,1] range
 
-## Type Hierarchy
-
-```NPcor <: ErrorMetric <: Any```
+NPcor <: ErrorMetric <: Any
 
 
 
-### NPcorInv
+---
 
+NPcorInv
 
-# NPcorInv
 
 Inverse Normalized Pearson Correlation: Inverse of NPcor for minimization problems
 
-## Type Hierarchy
-
-```NPcorInv <: ErrorMetric <: Any```
+NPcorInv <: ErrorMetric <: Any
 
 
 
-### Pcor
+---
 
+Pcor
 
-# Pcor
 
 Pearson Correlation: Measures linear correlation between predictions and observations
 
-## Type Hierarchy
-
-```Pcor <: ErrorMetric <: Any```
+Pcor <: ErrorMetric <: Any
 
 
 
-### Pcor2
+---
 
+Pcor2
 
-# Pcor2
 
 Squared Pearson Correlation: Measures the strength of linear relationship between predictions and observations
 
-## Type Hierarchy
-
-```Pcor2 <: ErrorMetric <: Any```
+Pcor2 <: ErrorMetric <: Any
 
 
 
-### Pcor2Inv
+---
 
+Pcor2Inv
 
-# Pcor2Inv
 
 Inverse Squared Pearson Correlation: Inverse of Pcor2 for minimization problems
 
-## Type Hierarchy
-
-```Pcor2Inv <: ErrorMetric <: Any```
+Pcor2Inv <: ErrorMetric <: Any
 
 
 
-### PcorInv
+---
 
+PcorInv
 
-# PcorInv
 
 Inverse Pearson Correlation: Inverse of Pcor for minimization problems
 
-## Type Hierarchy
-
-```PcorInv <: ErrorMetric <: Any```
+PcorInv <: ErrorMetric <: Any
 
 
 
 ## Rank Correlation Metrics
 
-### NScor
+NScor
 
-
-# NScor
 
 Normalized Spearman Correlation: Measures monotonic relationship between predictions and observations, normalized to [0,1] range
 
-## Type Hierarchy
-
-```NScor <: ErrorMetric <: Any```
+NScor <: ErrorMetric <: Any
 
 
 
-### NScorInv
+---
 
+NScorInv
 
-# NScorInv
 
 Inverse Normalized Spearman Correlation: Inverse of NScor for minimization problems
 
-## Type Hierarchy
-
-```NScorInv <: ErrorMetric <: Any```
+NScorInv <: ErrorMetric <: Any
 
 
 
-### Scor
+---
 
+Scor
 
-# Scor
 
 Spearman Correlation: Measures monotonic relationship between predictions and observations
 
-## Type Hierarchy
-
-```Scor <: ErrorMetric <: Any```
+Scor <: ErrorMetric <: Any
 
 
 
-### Scor2
+---
 
+Scor2
 
-# Scor2
 
 Squared Spearman Correlation: Measures the strength of monotonic relationship between predictions and observations
 
-## Type Hierarchy
-
-```Scor2 <: ErrorMetric <: Any```
+Scor2 <: ErrorMetric <: Any
 
 
 
-### Scor2Inv
+---
 
+Scor2Inv
 
-# Scor2Inv
 
 Inverse Squared Spearman Correlation: Inverse of Scor2 for minimization problems
 
-## Type Hierarchy
-
-```Scor2Inv <: ErrorMetric <: Any```
+Scor2Inv <: ErrorMetric <: Any
 
 
 
-### ScorInv
+---
 
+ScorInv
 
-# ScorInv
 
 Inverse Spearman Correlation: Inverse of Scor for minimization problems
 
-## Type Hierarchy
-
-```ScorInv <: ErrorMetric <: Any```
+ScorInv <: ErrorMetric <: Any
 
 
 
