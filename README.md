@@ -78,7 +78,7 @@ nseσ = metric(NSEσ(), ŷ, y, yσ)
 
 ## Documentation
 
-For detailed documentation, see the [ErrorMetrics.jl documentation][docs-stable-url].
+For detailed documentation, see the [ErrorMetrics.jl documentation](https://landecosystems.github.io/ErrorMetrics.jl).
 
 ## License
 
