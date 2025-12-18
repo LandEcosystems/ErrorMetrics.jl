@@ -9,28 +9,6 @@ catch
     using OmniTools
 end
 
-using Pkg
-# Ensure OmniTools is available (for CI/CD where it's not registered)
-# Add it before any other operations to avoid dependency resolution issues
-try
-    using OmniTools
-catch
-    @info "OmniTools not available, adding from git..."
-    Pkg.add(url = "https://github.com/LandEcosystems/OmniTools.jl.git", rev = "main")
-    using OmniTools
-end
-
-using Pkg
-# Ensure OmniTools is available (for CI/CD where it's not registered)
-# Add it before any other operations to avoid dependency resolution issues
-try
-    using OmniTools
-catch
-    @info "OmniTools not available, adding from git..."
-    Pkg.add(url = "https://github.com/LandEcosystems/OmniTools.jl.git", rev = "main")
-    using OmniTools
-end
-
 using DocumenterVitepress
 using Documenter
 using ErrorMetrics
