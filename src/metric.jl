@@ -17,6 +17,47 @@ calculate the performance/loss metric for given observation and model simulation
 # Returns:
 - `metric`: The calculated metric value
 
+# Examples
+```jldoctest
+julia> using ErrorMetrics
+
+julia> y = [1.0, 2.0, 3.0, 4.0, 5.0]
+5-element Vector{Float64}:
+ 1.0
+ 2.0
+ 3.0
+ 4.0
+ 5.0
+
+julia> ŷ = [1.1, 2.2, 2.9, 4.1, 4.8]
+5-element Vector{Float64}:
+ 1.1
+ 2.2
+ 2.9
+ 4.1
+ 4.8
+
+julia> metric(MSE(), ŷ, y)
+0.02200000000000002
+
+julia> yσ = [0.1, 0.1, 0.1, 0.1, 0.1]
+5-element Vector{Float64}:
+ 0.1
+ 0.1
+ 0.1
+ 0.1
+ 0.1
+
+julia> metric(NSEσ(), ŷ, y, yσ)
+0.989
+
+julia> metric(Pcor(), ŷ, y)
+0.9966065527770355
+
+julia> metric(NSE(), ŷ, y)
+0.989
+```
+
 """
 function metric end
 
