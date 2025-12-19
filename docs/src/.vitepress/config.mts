@@ -9,58 +9,7 @@ import mathjax3 from 'markdown-it-mathjax3'
 const navItems = [
   { text: 'Home', link: '/' },
   { text: 'API', link: '/api' },
-  { 
-    text: 'ErrorMetric', 
-    items: [
-      { 
-        text: 'Error-based Metrics', 
-        link: '/types#error-based-metrics',
-        items: [
-          { text: 'MSE', link: '/types#mse' },
-          { text: 'NAME1R', link: '/types#name1r' },
-          { text: 'NMAE1R', link: '/types#nmae1r' },
-        ]
-      },
-      { 
-        text: 'Nash-Sutcliffe Efficiency Metrics', 
-        link: '/types#nash-sutcliffe-efficiency-metrics',
-        items: [
-          { text: 'NSE', link: '/types#nse' },
-          { text: 'NSEInv', link: '/types#nseinv' },
-          { text: 'NSEσ', link: '/types#nseσ' },
-          { text: 'NSEσInv', link: '/types#nseσinv' },
-          { text: 'NNSE', link: '/types#nnse' },
-          { text: 'NNSEInv', link: '/types#nnseinv' },
-          { text: 'NNSEσ', link: '/types#nnseσ' },
-          { text: 'NNSEσInv', link: '/types#nnseσinv' },
-        ]
-      },
-      { 
-        text: 'Correlation-based Metrics', 
-        link: '/types#correlation-based-metrics',
-        items: [
-          { text: 'Pcor', link: '/types#pcor' },
-          { text: 'PcorInv', link: '/types#pcorinv' },
-          { text: 'Pcor2', link: '/types#pcor2' },
-          { text: 'Pcor2Inv', link: '/types#pcor2inv' },
-          { text: 'NPcor', link: '/types#npcor' },
-          { text: 'NPcorInv', link: '/types#npcorinv' },
-        ]
-      },
-      { 
-        text: 'Rank Correlation Metrics', 
-        link: '/types#rank-correlation-metrics',
-        items: [
-          { text: 'Scor', link: '/types#scor' },
-          { text: 'ScorInv', link: '/types#scorinv' },
-          { text: 'Scor2', link: '/types#scor2' },
-          { text: 'Scor2Inv', link: '/types#scor2inv' },
-          { text: 'NScor', link: '/types#nscor' },
-          { text: 'NScorInv', link: '/types#nscorinv' },
-        ]
-      },
-    ]
-  },
+  { text: 'ErrorMetric', link: '/types'},
 ]
 
 // Sidebar configuration - organized by sections
