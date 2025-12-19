@@ -12,7 +12,6 @@ const navItems = [
   { 
     text: 'ErrorMetric', 
     items: [
-      { text: 'ErrorMetric', link: '/types#errormetric' },
       { 
         text: 'Error-based Metrics', 
         link: '/types#error-based-metrics',
