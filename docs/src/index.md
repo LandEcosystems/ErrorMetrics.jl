@@ -6,6 +6,7 @@ A Julia package providing error / performance metrics for comparing model output
 
 ```julia
 using ErrorMetrics
+using Random
 
 y  = randn(100)             # observations
 ŷ  = y .+ 0.1randn(100)     # model output
