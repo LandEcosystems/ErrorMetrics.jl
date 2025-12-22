@@ -81,7 +81,7 @@ Requirements:
 Implement the metric calculation:
 
 ```julia
-function metric(::NewMetric, ŷ::AbstractArray, y::AbstractArray, yσ::AbstractArray)
+function metric(::NewMetric, ŷ::AbstractArray, y::AbstractArray, yσ::AbstractArray)
     # Your metric calculation here
     return metric_value
 end
@@ -89,11 +89,14 @@ end
 
 Requirements:
 - Function must be named `metric`
-- Must take four arguments:
-  - `ŷ`: Model simulation data/estimate
-  - `y`: Observation data
-  - `yσ`: Observational uncertainty data
-  - The metric type
+- Canonical ErrorMetrics API is `metric(m, ŷ, y[, yσ])`
+  - `m`: metric type instance (e.g. `NewMetric()`)
+  - `ŷ`: model simulation / estimate
+  - `y`: observations
+  - `yσ` (optional): observational uncertainty; if omitted ErrorMetrics uses a ones-like default (no allocation)
+- For a new metric type, implement the **4-argument method**:
+  - `metric(::NewMetric, ŷ, y, yσ)`
+  - You do **not** need to implement the 3-argument method; it is already provided and forwards to your 4-arg method.
 - Must return a scalar value
 
 ### 3. Define Purpose
