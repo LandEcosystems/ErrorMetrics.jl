@@ -2,6 +2,10 @@ name = "ErrorMetrics"
 uuid = "c324fbf6-076a-4da5-8ad2-21081a6b285c"
 version = "0.1.0"
 authors = ["SINDBAD Contributors <sindbad@bgc-jena.mpg.de>"]
+description = "Error / performance metrics for comparing model outputs with observations"
+license = "EUPL-1.2"
+readme = "README.md"
+repository = "https://github.com/LandEcosystems/ErrorMetrics.jl"
 
 [deps]
 StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
