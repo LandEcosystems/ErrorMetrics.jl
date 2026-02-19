@@ -1,0 +1,344 @@
+/**
+ * Customize default theme styling by overriding CSS variables:
+ * https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css
+ * 
+ * Colors inspired by Sindbad logo palette, customized for ErrorMetrics.jl
+ */
+
+/**
+ * Fonts
+ * -------------------------------------------------------------------------- 
+ */
+@font-face {
+  font-family: JuliaMono-Regular;
+  src: url("https://cdn.jsdelivr.net/gh/cormullion/juliamono/webfonts/JuliaMono-Regular.woff2");
+}
+
+:root {
+  /* Typography */
+  --vp-font-family-base: "Barlow", "Inter var experimental", "Inter var",
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+    Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+
+  /* Code Snippet font */
+  --vp-font-family-mono: JuliaMono-Regular, monospace;
+}
+
+/* Disable contextual alternates in monospace for Julia code */
+pre, code {
+  font-family: "JuliaMono-Regular", monospace;
+  font-feature-settings: "calt" off;
+  white-space: pre-wrap !important;
+}
+
+/**
+ * Colors - Inspired by Sindbad logo palette
+ * Primary colors extracted from logo: teal, blue, and complementary tones
+ * -------------------------------------------------------------------------- */
+
+:root {
+  /* Brand colors - Distinct teal/cyan palette inspired by Sindbad logo */
+  /* Primary brand color - deep teal/cyan */
+  --vp-c-brand-1: #008B8B;
+  --vp-c-brand-2: #20B2AA;
+  --vp-c-brand-3: #48D1CC;
+  
+  /* Accent colors from logo palette */
+  --errormetrics-teal: #008B8B;
+  --errormetrics-cyan: #20B2AA;
+  --errormetrics-light-cyan: #48D1CC;
+  --errormetrics-dark-teal: #006666;
+  --errormetrics-blue: #4682B4;
+  
+  /* Light mode brand colors */
+  --vp-c-brand-light: #20B2AA;
+  --vp-c-brand-lighter: #48D1CC;
+  --vp-c-brand-lightest: #AFEEEE;
+  --vp-c-brand-dark: #006666;
+  --vp-c-brand-darker: #004D4D;
+  
+  /* Button colors */
+  --vp-button-brand-border: var(--vp-c-brand-2);
+  --vp-button-brand-text: var(--vp-c-white);
+  --vp-button-brand-bg: var(--vp-c-brand-1);
+  --vp-button-brand-hover-border: var(--vp-c-brand-2);
+  --vp-button-brand-hover-text: var(--vp-c-white);
+  --vp-button-brand-hover-bg: var(--vp-c-brand-2);
+  --vp-button-brand-active-border: var(--vp-c-brand-2);
+  --vp-button-brand-active-text: var(--vp-c-white);
+  --vp-button-brand-active-bg: var(--vp-c-brand-1);
+}
+
+/**
+ * Dark mode colors
+ * -------------------------------------------------------------------------- */
+.dark {
+  --vp-c-brand-1: #20B2AA;
+  --vp-c-brand-2: #48D1CC;
+  --vp-c-brand-3: #AFEEEE;
+  --vp-button-brand-hover-bg: var(--vp-c-brand-2);
+}
+
+/**
+ * Component: Home Hero
+ * -------------------------------------------------------------------------- */
+:root {
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: -webkit-linear-gradient(
+    120deg,
+    #008B8B 30%,
+    #20B2AA 50%,
+    #48D1CC 80%
+  );
+
+  --vp-home-hero-image-background-image: linear-gradient(
+    120deg,
+    #008B8B 30%,
+    #20B2AA 50%,
+    #48D1CC 80%
+  );
+  --vp-home-hero-image-filter: blur(40px);
+}
+
+@media (min-width: 640px) {
+  :root {
+    --vp-home-hero-image-filter: blur(56px);
+  }
+}
+
+@media (min-width: 960px) {
+  :root {
+    --vp-home-hero-image-filter: blur(72px);
+  }
+}
+
+/**
+ * Component: Links
+ * -------------------------------------------------------------------------- */
+:root {
+  --vp-c-text-link: var(--vp-c-brand-1);
+}
+
+a:hover {
+  color: var(--vp-c-brand-2);
+}
+
+/**
+ * Component: Page Headings (Section and Subsection Titles)
+ * -------------------------------------------------------------------------- */
+/* Main page headings */
+.VPDoc .content h1 {
+  color: var(--errormetrics-teal);
+  border-bottom: 2px solid var(--errormetrics-cyan);
+  padding-bottom: 0.5rem;
+}
+
+.VPDoc .content h2 {
+  color: var(--errormetrics-cyan);
+  border-bottom: 1px solid var(--errormetrics-light-cyan);
+  padding-bottom: 0.4rem;
+  margin-top: 2rem;
+}
+
+.VPDoc .content h3 {
+  color: var(--errormetrics-dark-teal);
+  margin-top: 1.5rem;
+}
+
+.VPDoc .content h4 {
+  color: var(--errormetrics-blue);
+  margin-top: 1.25rem;
+}
+
+.VPDoc .content h5,
+.VPDoc .content h6 {
+  color: var(--errormetrics-teal);
+  margin-top: 1rem;
+}
+
+/* Dark mode adjustments for headings */
+.dark .VPDoc .content h1 {
+  color: var(--errormetrics-cyan);
+  border-bottom-color: var(--errormetrics-light-cyan);
+}
+
+.dark .VPDoc .content h2 {
+  color: var(--errormetrics-light-cyan);
+  border-bottom-color: var(--errormetrics-cyan);
+}
+
+.dark .VPDoc .content h3 {
+  color: var(--errormetrics-cyan);
+}
+
+.dark .VPDoc .content h4 {
+  color: var(--errormetrics-light-cyan);
+}
+
+.dark .VPDoc .content h5,
+.dark .VPDoc .content h6 {
+  color: var(--errormetrics-cyan);
+}
+
+/**
+ * Component: Sidebar Titles
+ * -------------------------------------------------------------------------- */
+/* Sidebar section group titles */
+.VPSidebar .group .items .item .text {
+  color: var(--errormetrics-teal);
+  font-weight: 600;
+}
+
+.VPSidebar .group .items .item.is-active .text {
+  color: var(--errormetrics-cyan);
+  font-weight: 700;
+}
+
+.VPSidebar .group .items .item:hover .text {
+  color: var(--errormetrics-cyan);
+}
+
+/* Sidebar subsection titles (nested items) */
+.VPSidebar .group .items .item .items .item .text {
+  color: var(--errormetrics-dark-teal);
+  font-weight: 500;
+}
+
+.VPSidebar .group .items .item .items .item.is-active .text {
+  color: var(--errormetrics-cyan);
+  font-weight: 600;
+}
+
+.VPSidebar .group .items .item .items .item:hover .text {
+  color: var(--errormetrics-cyan);
+}
+
+/* Sidebar group labels (section headers like "Getting Started", "Documentation") */
+.VPSidebar .group .title {
+  color: var(--errormetrics-teal);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+}
+
+/* Dark mode adjustments for sidebar */
+.dark .VPSidebar .group .items .item .text {
+  color: var(--errormetrics-cyan);
+}
+
+.dark .VPSidebar .group .items .item.is-active .text {
+  color: var(--errormetrics-light-cyan);
+}
+
+.dark .VPSidebar .group .items .item:hover .text {
+  color: var(--errormetrics-light-cyan);
+}
+
+.dark .VPSidebar .group .items .item .items .item .text {
+  color: var(--errormetrics-cyan);
+}
+
+.dark .VPSidebar .group .items .item .items .item.is-active .text {
+  color: var(--errormetrics-light-cyan);
+}
+
+.dark .VPSidebar .group .items .item .items .item:hover .text {
+  color: var(--errormetrics-light-cyan);
+}
+
+.dark .VPSidebar .group .title {
+  color: var(--errormetrics-cyan);
+}
+
+/**
+ * Component: Table of Contents (Outline)
+ * -------------------------------------------------------------------------- */
+/* TOC headings */
+.VPDocOutline .outline-title {
+  color: var(--errormetrics-teal);
+  font-weight: 600;
+}
+
+.VPDocOutline .outline-link {
+  color: var(--errormetrics-dark-teal);
+}
+
+.VPDocOutline .outline-link:hover {
+  color: var(--errormetrics-cyan);
+}
+
+.VPDocOutline .outline-link.active {
+  color: var(--errormetrics-cyan);
+  font-weight: 600;
+}
+
+/* Dark mode for TOC */
+.dark .VPDocOutline .outline-title {
+  color: var(--errormetrics-cyan);
+}
+
+.dark .VPDocOutline .outline-link {
+  color: var(--errormetrics-cyan);
+}
+
+.dark .VPDocOutline .outline-link:hover {
+  color: var(--errormetrics-light-cyan);
+}
+
+.dark .VPDocOutline .outline-link.active {
+  color: var(--errormetrics-light-cyan);
+}
+
+/**
+ * Component: Search
+ * -------------------------------------------------------------------------- */
+.DocSearch {
+  --docsearch-primary-color: var(--vp-c-brand-1) !important;
+}
+
+/**
+ * Component: Footer
+ * -------------------------------------------------------------------------- */
+.VPFooter {
+  padding: 1rem 0;
+}
+
+.VPFooter .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -1rem;
+  margin-bottom: -1rem;
+}
+
+.VPFooter .message,
+.VPFooter .copyright {
+  display: flex;
+  align-items: center;
+}
+
+.VPFooter .message {
+  margin-right: 1em;
+}
+
+.VPFooter .copyright {
+  flex-direction: column;
+  text-align: center;
+}
+
+.VPFooter .copyright span {
+  margin-bottom: 0.0em;
+}
+
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+  .VPFooter .container {
+    flex-direction: column;
+  }
+
+  .VPFooter .message {
+    margin-right: 0;
+    margin-bottom: 1em;
+  }
+}
