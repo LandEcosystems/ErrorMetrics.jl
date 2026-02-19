@@ -25,7 +25,7 @@ using OmniTools: purpose
 using InteractiveUtils: subtypes
 
 # Read the metric.jl file to extract function implementations
-metric_file = joinpath(@__DIR__, "..", "src", "metric.jl")
+metric_file = joinpath(@__DIR__, "..", "src", "metrics.jl")
 metric_code = read(metric_file, String)
 
 # Function to convert Julia code to LaTeX equation
