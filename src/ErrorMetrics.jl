@@ -8,7 +8,7 @@ This module defines metric types and a `metric(m, ŷ, y[, yσ])` API to compute
 
 # Included Files
 - `ErrorMetricsTypes.jl`: Core ErrorMetrics types.
-- `metric.jl`: Metric definitions (e.g., MSE, NSE, correlations) and helpers.
+- `metrics.jl`: Metric definitions (e.g., MSE, NSE, correlations) and helpers.
 
 
 # Notes
@@ -34,6 +34,6 @@ module ErrorMetrics
    using StatsBase
 
    include("ErrorMetricsTypes.jl")
-   include("metric.jl")
+   include("metrics.jl")
 
 end # module ErrorMetrics
