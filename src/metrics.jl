@@ -1,4 +1,5 @@
 export metric
+export metricJacobian
 
 @doc """
 
@@ -208,4 +209,61 @@ end
 function metric(::Scor2Inv, ŷ::AbstractArray, y::AbstractArray, yσ::AbstractArray)
     ρ2Inv = one(eltype(ŷ)) - metric(y, yσ, ŷ, Scor2())
     return ρ2Inv
+end
+
+function metric(::NSEInvUnbiased, ŷ::AbstractArray, y::AbstractArray, yσ::AbstractArray)
+    observed_anomaly = y .- mean(y)
+    simulated_anomaly = ŷ .- mean(ŷ)
+    return sum(abs2, simulated_anomaly .- observed_anomaly) /
+           sum(abs2, observed_anomaly)
+end
+
+function metric(::NMAE1Rabs, simulated::AbstractArray,
+                observed::AbstractArray, uncertainty::AbstractArray)
+    denominator = one(eltype(simulated)) + abs(mean(observed))
+    return mean(abs.(simulated .- observed)) / denominator
+end
+
+
+function metricJacobian end
+
+# Optional uncertainties, consistent with the existing metric API.
+function metricJacobian(m::ErrorMetric, simulated::AbstractArray,
+                        observed::AbstractArray)
+    T = promote_type(eltype(simulated), eltype(observed))
+    return metricJacobian(
+        m, simulated, observed, _oneslike(observed, T)
+    )
+end
+
+# Optional bridge for old callers.
+metricJacobian(observed::AbstractArray, uncertainty::AbstractArray,
+               simulated::AbstractArray, m::ErrorMetric) =
+    metricJacobian(m, simulated, observed, uncertainty)
+
+function metricJacobian(::NSEInv, simulated::AbstractArray,
+                        observed::AbstractArray,
+                        uncertainty::AbstractArray)
+    denominator = sqrt(sum(abs2, observed .- mean(observed)))
+    return (observed .- simulated) ./ denominator
+end
+
+function metricJacobian(::NSEInvUnbiased, simulated::AbstractArray,
+                        observed::AbstractArray,
+                        uncertainty::AbstractArray)
+    obs_anomaly = observed .- mean(observed)
+    sim_anomaly = simulated .- mean(simulated)
+    return (obs_anomaly .- sim_anomaly) ./
+           sqrt(sum(abs2, obs_anomaly))
+end
+
+function metricJacobian(::NMAE1Rabs, simulated::AbstractArray,
+                        observed::AbstractArray, uncertainty::AbstractArray)
+    denominator = sqrt(one(eltype(simulated)) + abs(mean(observed)))
+    return (simulated .- observed) ./ denominator
+end
+function metricJacobian(::NMAE1R, simulated::AbstractArray,
+                        observed::AbstractArray, uncertainty::AbstractArray)
+    denominator = sqrt(one(eltype(simulated)) + mean(observed))
+    return (simulated .- observed) ./ denominator
 end

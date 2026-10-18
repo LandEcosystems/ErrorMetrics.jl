@@ -25,6 +25,8 @@ export Scor
 export ScorInv
 export Scor2
 export Scor2Inv
+export NSEInvUnbiased
+export NMAE1Rabs
 
 
 struct MSE <: ErrorMetric end
@@ -95,3 +97,11 @@ purpose(::Type{Scor2}) = "Squared Spearman Correlation: Measures the strength of
 
 struct Scor2Inv <: ErrorMetric end
 purpose(::Type{Scor2Inv}) = "Inverse Squared Spearman Correlation: Inverse of Scor2 for minimization problems"
+
+struct NSEInvUnbiased <: ErrorMetric end
+purpose(::Type{NSEInvUnbiased}) =
+    "Inverse Nash-Sutcliffe efficiency after removing the mean from each series"
+    
+struct NMAE1Rabs <: ErrorMetric end
+purpose(::Type{NMAE1Rabs}) =
+    "Mean absolute error normalized by one plus the absolute observation mean"
