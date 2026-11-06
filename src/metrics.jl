@@ -88,6 +88,15 @@ end
     return metric(m, ŷ, y, _oneslike(y, T))
 end
 
+"""
+    sumLazy(f, arrays...)
+
+Returns the sum of `f` applied element-wise to `arrays`, like `sum(f.(arrays...))`, but
+without the temporary array. The broadcast is summed lazily, which keeps the pairwise
+summation of an array sum.
+"""
+sumLazy(f, arrays...) = sum(Broadcast.instantiate(Broadcast.broadcasted(f, arrays...)))
+
 function metric(::MSE, ŷ::AbstractArray, y::AbstractArray, yσ::AbstractArray)
     return mean(abs2.(y .- ŷ))
 end
@@ -101,7 +110,7 @@ end
 
 function metric(::NMAE1R, ŷ::AbstractArray, y::AbstractArray, yσ::AbstractArray)
     μ_y = mean(y)
-    NMAE1R = mean(abs.(ŷ - y)) / (one(eltype(ŷ)) + μ_y)
+    NMAE1R = sumLazy((a, b) -> abs(a - b), ŷ, y) / length(y) / (one(eltype(ŷ)) + μ_y)
     return NMAE1R
 end
 
@@ -152,7 +161,8 @@ function metric(::NScorInv, ŷ::AbstractArray, y::AbstractArray, yσ::AbstractA
 end
 
 function metric(::NSE, ŷ::AbstractArray, y::AbstractArray, yσ::AbstractArray)
-    NSE = one(eltype(ŷ)) .- sum(abs2.((y .- ŷ))) / sum(abs2.((y .- mean(y))))
+    μ_y = mean(y)
+    NSE = one(eltype(ŷ)) - sumLazy((a, b) -> abs2(a - b), y, ŷ) / sumLazy(a -> abs2(a - μ_y), y)
     return NSE
 end
 
@@ -162,10 +172,11 @@ function metric(::NSEInv, ŷ::AbstractArray, y::AbstractArray, yσ::AbstractArr
 end
 
 function metric(::NSEσ, ŷ::AbstractArray, y::AbstractArray, yσ::AbstractArray)
+    μ_y = mean(y)
     NSE =
-        one(eltype(ŷ)) .-
-        sum(abs2.((y .- ŷ) ./ yσ)) /
-        sum(abs2.((y .- mean(y)) ./ yσ))
+        one(eltype(ŷ)) -
+        sumLazy((a, b, σ) -> abs2((a - b) / σ), y, ŷ, yσ) /
+        sumLazy((a, σ) -> abs2((a - μ_y) / σ), y, yσ)
     return NSE
 end
 
