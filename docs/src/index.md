@@ -29,6 +29,8 @@ See the [API](api.md) page for the full list of metrics.
 - `MSE`: Mean squared error - Measures the average squared difference between predicted and observed values
 - `NAME1R`: Normalized Absolute Mean Error with 1/R scaling - Measures the absolute difference between means normalized by the range of observations
 - `NMAE1R`: Normalized Mean Absolute Error with 1/R scaling - Measures the average absolute error normalized by the range of observations
+- `NMAE1RBounded` - Bounded Normalized Mean Absolute Error - NMAE1R mapped to [0, 1) as x / (1 + x), so that a very large error cannot dominate a sum of metrics
+- `LogNMSE` - Log Normalized Mean Squared Error - log(1 + (1 - NSE)), zero for a perfect fit, with a gradient that fades more slowly for bad fits than that of NNSEInv
 
 ### Nash-Sutcliffe Efficiency Metrics
 

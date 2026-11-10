@@ -2,9 +2,11 @@ export ErrorMetric
 abstract type ErrorMetric end
 purpose(::Type{ErrorMetric}) = "Abstract type for error / performance metrics"
 # ------------------------- metric -------------------------
+export LogNMSE
 export MSE
 export NAME1R
 export NMAE1R
+export NMAE1RBounded
 export NNSE
 export NNSEInv
 export NNSEσ
@@ -35,6 +37,12 @@ purpose(::Type{NAME1R}) = "Normalized Absolute Mean Error with 1/R scaling: Meas
 
 struct NMAE1R <: ErrorMetric end
 purpose(::Type{NMAE1R}) = "Normalized Mean Absolute Error with 1/R scaling: Measures the average absolute error normalized by the range of observations"
+
+struct NMAE1RBounded <: ErrorMetric end
+purpose(::Type{NMAE1RBounded}) = "Bounded Normalized Mean Absolute Error: NMAE1R mapped to [0, 1) as x / (1 + x), so that a very large error cannot dominate a sum of metrics"
+
+struct LogNMSE <: ErrorMetric end
+purpose(::Type{LogNMSE}) = "Log Normalized Mean Squared Error: log(1 + (1 - NSE)), zero for a perfect fit, with a gradient that fades more slowly for bad fits than that of NNSEInv"
 
 struct NNSE <: ErrorMetric end
 purpose(::Type{NNSE}) = "Normalized Nash-Sutcliffe Efficiency: Measures model performance relative to the mean of observations, normalized to [0,1] range"

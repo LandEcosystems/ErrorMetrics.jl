@@ -114,6 +114,15 @@ function metric(::NMAE1R, ŷ::AbstractArray, y::AbstractArray, yσ::AbstractArr
     return NMAE1R
 end
 
+function metric(::NMAE1RBounded, ŷ::AbstractArray, y::AbstractArray, yσ::AbstractArray)
+    x = metric(y, yσ, ŷ, NMAE1R())
+    return x / (one(x) + x)
+end
+
+function metric(::LogNMSE, ŷ::AbstractArray, y::AbstractArray, yσ::AbstractArray)
+    return log1p(metric(y, yσ, ŷ, NSEInv()))
+end
+
 function metric(::NNSE, ŷ::AbstractArray, y::AbstractArray, yσ::AbstractArray)
     NSE_v = metric(y, yσ, ŷ, NSE())
     NNSE = one(eltype(ŷ)) / (one(eltype(ŷ)) + one(eltype(ŷ)) - NSE_v)

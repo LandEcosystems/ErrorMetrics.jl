@@ -38,6 +38,8 @@ function julia_to_latex(code::String, metric_name::String)
         "MSE" => raw"\text{MSE} = \frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y}_i)^2",
         "NAME1R" => raw"\text{NAME1R} = \frac{|\bar{\hat{y}} - \bar{y}|}{1 + \bar{y}}",
         "NMAE1R" => raw"\text{NMAE1R} = \frac{1}{n}\sum_{i=1}^{n}\frac{|y_i - \hat{y}_i|}{1 + \bar{y}}",
+        "NMAE1RBounded" => raw"\text{NMAE1RBounded} = \frac{\text{NMAE1R}}{1 + \text{NMAE1R}}",
+        "LogNMSE" => raw"\text{LogNMSE} = \log(1 + (1 - \text{NSE}))",
         "NSE" => raw"\text{NSE} = 1 - \frac{\sum_{i=1}^{n}(y_i - \hat{y}_i)^2}{\sum_{i=1}^{n}(y_i - \bar{y})^2}",
         "NSEInv" => raw"\text{NSEInv} = 1 - \text{NSE}",
         "NSEσ" => raw"\text{NSE}_\sigma = 1 - \frac{\sum_{i=1}^{n}\left(\frac{y_i - \hat{y}_i}{\sigma_i}\right)^2}{\sum_{i=1}^{n}\left(\frac{y_i - \bar{y}}{\sigma_i}\right)^2}",
@@ -109,7 +111,7 @@ open(api_path, "w") do io
     sort!(error_metric_types, by=nameof)
     
     # Group by category
-    error_based = filter(t -> nameof(t) in [:MSE, :NAME1R, :NMAE1R], error_metric_types)
+    error_based = filter(t -> nameof(t) in [:MSE, :NAME1R, :NMAE1R, :NMAE1RBounded, :LogNMSE], error_metric_types)
     nse_based = filter(t -> occursin("NSE", string(nameof(t))), error_metric_types)
     correlation_pearson = filter(t -> occursin("Pcor", string(nameof(t))) && !occursin("Scor", string(nameof(t))), error_metric_types)
     rank_correlation = filter(t -> occursin("Scor", string(nameof(t))), error_metric_types)

@@ -29,6 +29,22 @@ end
         @test isapprox(metric(NSEσInv(), ŷ, y, yσ), 1 - nseσ; atol=1e-12, rtol=0)
     end
 
+    @testset "Bounded and log error metrics" begin
+        x = metric(NMAE1R(), ŷ, y)
+        @test isapprox(metric(NMAE1RBounded(), ŷ, y), x / (1 + x); atol=1e-12, rtol=0)
+        @test metric(NMAE1RBounded(), y, y) == 0
+        # a very large error stays below 1
+        @test metric(NMAE1RBounded(), 1e6 .* y, y) < 1
+        nse = metric(NSE(), ŷ, y)
+        @test isapprox(metric(LogNMSE(), ŷ, y), log1p(1 - nse); atol=1e-12, rtol=0)
+        @test metric(LogNMSE(), y, y) == 0
+        # a fit with NSE = -3 gives log(1 + 4)
+        y_bad = 3 .* (y .- 3) .+ 3
+        @test isapprox(metric(NSE(), y_bad, y), -3; atol=1e-12, rtol=0)
+        @test isapprox(metric(LogNMSE(), y_bad, y), log(5); atol=1e-12, rtol=0)
+        @test metric(y, yσ, ŷ, LogNMSE()) == metric(LogNMSE(), ŷ, y, yσ)
+    end
+
     @testset "Correlation family" begin
         p = metric(Pcor(), ŷ, y)
         @test isapprox(p, 0.9966065527770355; atol=1e-12, rtol=0)

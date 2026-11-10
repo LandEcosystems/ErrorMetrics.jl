@@ -54,7 +54,7 @@ open(types_path, "w") do io
     sort!(error_metric_types, by=nameof)
     
     # Group by category
-    error_based = filter(t -> nameof(t) in [:MSE, :NAME1R, :NMAE1R], error_metric_types)
+    error_based = filter(t -> nameof(t) in [:MSE, :NAME1R, :NMAE1R, :NMAE1RBounded, :LogNMSE], error_metric_types)
     nse_based = filter(t -> occursin("NSE", string(nameof(t))), error_metric_types)
     correlation_based = filter(t -> occursin("cor", lowercase(string(nameof(t)))), error_metric_types)
     rank_correlation = filter(t -> occursin("Scor", string(nameof(t))), error_metric_types)
