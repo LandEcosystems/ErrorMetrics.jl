@@ -49,6 +49,10 @@ pcor = metric(Pcor(), ŷ, y)
 # with observational uncertainty
 yσ = 0.2 .* ones(100)
 nseσ = metric(NSEσ(), ŷ, y, yσ)
+
+# or call the metric type on the data, the same as metric(T(), ŷ, y[, yσ])
+nse  = NSE(ŷ, y)
+nseσ = NSEσ(ŷ, y, yσ)
 ```
 
 ## Available Metrics

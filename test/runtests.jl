@@ -53,6 +53,11 @@ end
         @test isapprox(metric(Pcor2Inv(), ŷ, y), 1 - p^2; atol=1e-12, rtol=0)
     end
 
+    @testset "Metric types called on data" begin
+        @test NMAE1RBounded(ŷ, y) == metric(NMAE1RBounded(), ŷ, y)
+        @test NSEσ(ŷ, y, yσ) == metric(NSEσ(), ŷ, y, yσ)
+    end
+
     @testset "Argument order bridge" begin
         @test metric(y, yσ, ŷ, NSEσ()) == metric(NSEσ(), ŷ, y, yσ)
     end

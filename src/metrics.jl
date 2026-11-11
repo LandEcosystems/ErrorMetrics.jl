@@ -229,3 +229,13 @@ function metric(::Scor2Inv, ŷ::AbstractArray, y::AbstractArray, yσ::AbstractA
     ρ2Inv = one(eltype(ŷ)) - metric(y, yσ, ŷ, Scor2())
     return ρ2Inv
 end
+
+# Call a metric type directly on the data, e.g., NSE(ŷ, y) or NSE(ŷ, y, yσ), the same as
+# metric(NSE(), ŷ, y[, yσ]). Defined for every concrete metric of this module, so a new
+# metric gets it too. The model output comes first, as in metric.
+for name in names(@__MODULE__; all=true)
+    T = getfield(@__MODULE__, name)
+    (T isa DataType && T <: ErrorMetric && isconcretetype(T)) || continue
+    @eval (::Type{$T})(ŷ::AbstractArray, y::AbstractArray) = metric($T(), ŷ, y)
+    @eval (::Type{$T})(ŷ::AbstractArray, y::AbstractArray, yσ::AbstractArray) = metric($T(), ŷ, y, yσ)
+end
